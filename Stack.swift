@@ -7,17 +7,14 @@ import Foundation
 
 public struct Stack<Element> : ExpressibleByArrayLiteral {
 
+    //MARK: - Private variables for the Stack - 
+    
     ///array to hold the items
     fileprivate var items = [Element]()
 
     ///public variable to see if the collection is empty
     public var isEmpty : Bool {
         return self.items.isEmpty
-    }
-
-    ///public var to get the count of the collection
-    public var count : Int {
-        return self.items.count
     }
 
     ///fileprivate variable for times, this is used for the next() function
@@ -27,7 +24,16 @@ public struct Stack<Element> : ExpressibleByArrayLiteral {
     fileprivate var nextStartingNumber : Int {
         return self.items.count - 1
     }
+    
+    //MARK: - Public variables for the Stack
+    
+    ///public var to get the count of the collection
+    public var count : Int {
+        return self.items.count
+    }
 
+    //MARK: - Constructors for the class - 
+    
     ///public constructor for the class
     public init(){}
 
@@ -37,13 +43,15 @@ public struct Stack<Element> : ExpressibleByArrayLiteral {
     ///This should not be directely called. Should be called with a declaration
     ///Followed by and comma seperated values inside of square brackets
     ///
-    ///     i.e. var myQueue : Stack = [1,2,3,4,5]
+    ///     i.e. var myStack : Stack = [1,2,3,4,5]
     public init(arrayLiteral items : Element...){
         for item in items{
             self.push(item: item)
         }
     }
 
+    //MARK: - Public functions for the Stack Class
+    
     ///public function to push an element on to the collection
     public mutating func push(item : Element){
         self.items.append(item)
