@@ -7,17 +7,14 @@ import Foundation
 
 public struct Queue<Element> : ExpressibleByArrayLiteral{
 
+    //MARK: - Private variables for the Queue Class - 
+    
     ///array to hold the items
     fileprivate var items = [Element]()
 
     ///public variable to see if the collection is empty
     public var isEmpty : Bool {
         return self.items.isEmpty
-    }
-
-    ///public var to get the count of the collection
-    public var count : Int {
-        return self.items.count
     }
 
     ///fileprivate variable for times, this is used for the next() function
@@ -27,7 +24,16 @@ public struct Queue<Element> : ExpressibleByArrayLiteral{
     fileprivate var nextStartingNumber : Int {
         return self.items.count - 1
     }
+    
+    //MARK: - Public Variables for the Queue Class
+    
+    ///public var to get the count of the collection
+    public var count : Int {
+        return self.items.count
+    }
 
+    //MARK: - Constructors for the Queue Class -
+    
     ///public constructor for the class
     public init(){}
 
@@ -44,6 +50,8 @@ public struct Queue<Element> : ExpressibleByArrayLiteral{
         }
     }
 
+    //MARK: - Public functions for the Queue class - 
+    
     ///public function to push an element on to the collection
     /// - Parameter item:   An element to push onto the Queue
     public mutating func push(item : Element){
