@@ -5,7 +5,7 @@
 
 import Foundation
 
-public struct Stack<Element> : ExpressibleByArrayLiteral {
+public struct Stack<Element>: ExpressibleByArrayLiteral {
 
     //MARK: - Private variables for the Stack - 
     
@@ -13,7 +13,7 @@ public struct Stack<Element> : ExpressibleByArrayLiteral {
     fileprivate var items = [Element]()
 
     ///public variable to see if the collection is empty
-    public var isEmpty : Bool {
+    public var isEmpty: Bool {
         return self.items.isEmpty
     }
 
@@ -21,14 +21,14 @@ public struct Stack<Element> : ExpressibleByArrayLiteral {
     fileprivate var times = 0
 
     ///fileprivate variable for the next starting number, this is used for the next() function
-    fileprivate var nextStartingNumber : Int {
+    fileprivate var nextStartingNumber: Int {
         return self.items.count - 1
     }
     
     //MARK: - Public variables for the Stack
     
     ///public var to get the count of the collection
-    public var count : Int {
+    public var count: Int {
         return self.items.count
     }
 
@@ -43,8 +43,8 @@ public struct Stack<Element> : ExpressibleByArrayLiteral {
     ///This should not be directely called. Should be called with a declaration
     ///Followed by and comma seperated values inside of square brackets
     ///
-    ///     i.e. var myStack : Stack = [1,2,3,4,5]
-    public init(arrayLiteral items : Element...){
+    ///     i.e. var myStack: Stack = [1,2,3,4,5]
+    public init(arrayLiteral items: Element...){
         for item in items{
             self.push(item: item)
         }
@@ -53,7 +53,7 @@ public struct Stack<Element> : ExpressibleByArrayLiteral {
     //MARK: - Public functions for the Stack Class
     
     ///public function to push an element on to the collection
-    public mutating func push(item : Element){
+    public mutating func push(item: Element){
         self.items.append(item)
     }
 
@@ -76,7 +76,7 @@ public struct Stack<Element> : ExpressibleByArrayLiteral {
 }
 
 //MARK: - Extension of Stack to make it comform to Sequence and IteratorProtocol -
-extension Stack : Sequence, IteratorProtocol{
+extension Stack: Sequence, IteratorProtocol{
 
     ///function to make the collection conform to Sequence and IteratorProtocol
     ///this allows the function to be used inside a for in loop
@@ -96,7 +96,7 @@ extension Stack : Sequence, IteratorProtocol{
 }
 
 //MARK: - Extension on Stack to make it conform to CustomString Convertible -
-extension Stack : CustomStringConvertible{
+extension Stack: CustomStringConvertible{
     
     ///Calculated Variable to get the Description of the Stack
     /// - return    a String reperesenting the values in the Stack
@@ -106,7 +106,7 @@ extension Stack : CustomStringConvertible{
 }
 
 //MARK: - Extension on Stack to get the hash Value of the stack if the Element is Hashable
-extension Stack where Element : Hashable{
+extension Stack where Element: Hashable{
 
     ///Calculated Variable to get the hashValue of the Stack
     /// -return:    An Int with the HashValue 
