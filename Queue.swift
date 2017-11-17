@@ -43,8 +43,8 @@ public struct Queue<Element> : ExpressibleByArrayLiteral{
     ///This should not be directely called. Should be called with a declaration
     ///Followed by and comma seperated values inside of square brackets
     ///
-    ///     i.e. var myQueue : Queue = [1,2,3,4,5]
-    public init(arrayLiteral items : Element...){
+    ///     i.e. var myQueue: Queue = [1,2,3,4,5]
+    public init(arrayLiteral items: Element...){
         for item in items{
             self.push(item: item)
         }
@@ -54,7 +54,7 @@ public struct Queue<Element> : ExpressibleByArrayLiteral{
     
     ///public function to push an element on to the collection
     /// - Parameter item:   An element to push onto the Queue
-    public mutating func push(item : Element){
+    public mutating func push(item: Element){
         self.items.append(item)
     }
 
@@ -77,7 +77,7 @@ public struct Queue<Element> : ExpressibleByArrayLiteral{
 }
 
 //MARK: - Extension for Queue to make it comform ot Sequesnce and IteratorProtocol -
-extension Queue : Sequence, IteratorProtocol {
+extension Queue: Sequence, IteratorProtocol {
 
     ///function to make the collection conform to Sequence and IteratorProtocol
     ///this allows the function to be used inside a for in loop
@@ -95,7 +95,7 @@ extension Queue : Sequence, IteratorProtocol {
 }
 
 //Mark: - Extension on Queue to make it comfrom to CustomStringConvertible
-extension Queue : CustomStringConvertible{
+extension Queue: CustomStringConvertible{
     
     ///Calculated variable to get the discription of the items in the Queue
     public var description: String {
@@ -104,7 +104,7 @@ extension Queue : CustomStringConvertible{
 }
 
 //MARK: - Extension on Queue to get the HashVale if Element conforms to Hashable
-extension Queue where Element : Hashable{
+extension Queue where Element: Hashable{
 
     ///Calculated variable to get the hashvalue of the the Queue
     public var hashValue : Int{
