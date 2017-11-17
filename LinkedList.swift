@@ -32,7 +32,7 @@ fileprivate class LinkedListNode<Element> {
 
 ///Class that for a linked list for a generic element
 ///class also conforms to CustomStringConvertible, Sequence, and IteratorProtocol
-public class LinkedList<Element>:  Sequence, IteratorProtocol, ExpressibleByArrayLiteral {
+public class LinkedList<Element>: Sequence, IteratorProtocol, ExpressibleByArrayLiteral {
 
     //MARK: - Private variables and constants for the Linked List -
 
@@ -83,7 +83,7 @@ public class LinkedList<Element>:  Sequence, IteratorProtocol, ExpressibleByArra
 
     ///pubic Bool var that tells whether the lis is empty returns true if self.count is equal to 0 and false otherwise
     public var isEmpty: Bool {
-        return self.count == 0 ? true : false
+        return self.count == 0
     }
 
 
@@ -100,7 +100,7 @@ public class LinkedList<Element>:  Sequence, IteratorProtocol, ExpressibleByArra
 
 
     ///public variable to get a new instance of a linked list with the same elements inside it
-    public var newInstance : LinkedList<Element> {
+    public var newInstance: LinkedList<Element> {
 
         //create a new LinkedList with the same type of element
         let temp = LinkedList<Element>()
@@ -127,8 +127,10 @@ public class LinkedList<Element>:  Sequence, IteratorProtocol, ExpressibleByArra
 
     ///Required init to make LinkedList conform to ExpressibleByArrayLiteral
     ///This constructor should not be called directly
+    ///
     ///To use it correctly you add a coma separated value list inside of square brackets
-    ///     let numbers : LinkedList = [1,2,3,4,5]
+    ///
+    ///     i.e. let numbers: LinkedList = [1,2,3,4,5]
     required public init(arrayLiteral list: Element...){
         for item in list{
             self.append(element: item)
@@ -292,20 +294,24 @@ public class LinkedList<Element>:  Sequence, IteratorProtocol, ExpressibleByArra
 
     //MARK: - Private Functions for the Linked List -
 
-    ///private function to increase the count of the list
+    ///Private function to increase the count of the list
     private func increaseCount() {
         self.count += 1
     }
 
-    ///private function to decrease the count of the list
+    ///Private function to decrease the count of the list
     private func decreaseCount() {
         self.count -= 1
     }
 
 
 
-    /// function to get a node at a certain index
-    fileprivate func nodeAt(index: Int) -> Node? {
+    /// Private function to get a node at a certain index
+    ///
+    /// - Parameter at index: Index that we want to get the Node of
+    ///
+    /// - Return: Optional Node at the Index provided.
+    fileprivate func nodeAt(at index: Int) -> Node? {
 
         //if the index is greater or equal to than self.startIndex and less than self.endIndex then go over the
         if index >= self.startIndex && index < self.endIndex {
@@ -333,7 +339,11 @@ public class LinkedList<Element>:  Sequence, IteratorProtocol, ExpressibleByArra
 
     }
 
-    ///private node to get the node before and the current node that something is supposed to be inserted at
+    ///Private node to get the node before and the current node that something is supposed to be inserted at
+    ///
+    /// -Parameter at index: Index that we want to get the surrounding Nodes
+    ///
+    /// -Return: A Tuple that contains two optional Nodes
     private func nodeBeforeAndAfter(at index: Int) -> (Node?, Node?) {
 
         assert(index >= 0)
@@ -355,8 +365,11 @@ public class LinkedList<Element>:  Sequence, IteratorProtocol, ExpressibleByArra
 
 
 
-    ///Public function to remove an element at a particular Node
-    ///return the element of that node
+    /// Private function to remove an element at a particular Node
+    ///
+    /// - Parameter node: The Node that we want to remove from the LinkedList
+    ///
+    /// - Return: the element of that node
     fileprivate func remove(node: Node) -> Element {
         let prev = node.previous
         let next = node.next
@@ -374,19 +387,19 @@ public class LinkedList<Element>:  Sequence, IteratorProtocol, ExpressibleByArra
         return node.value
     }
 
-
-
-
-
     ///fileprivate function to set the self.times to 0
     fileprivate func resetTimes(){
         self.times = 0
     }
 
 
-    ///private function to swap the values of two nodes
+    /// Private function to swap the values of two nodes
     ///after trying to swap the place where the nodes were found it was easier to just swap the values
-    ///since this is a class and not a struct it is a reference so we can just swap the values and move one
+    ///since this is a class and not a struct it is a reference so we can just swap the values
+    ///
+    /// - Parameters:
+    ///         left: Node on the left that we want to swap the value of
+    ///         right: Node on the right that we want to swap the value of
     fileprivate func swap(left : Node, right: Node){
 
         //set temp equal to the value in the left node to temp
@@ -397,17 +410,16 @@ public class LinkedList<Element>:  Sequence, IteratorProtocol, ExpressibleByArra
         right.value = temp
     }
 
-
-
-
 }
 
 //MARK: - Extension to make LinkedList conform to CustomStringConvertible -
 
-extension LinkedList : CustomStringConvertible{
+extension LinkedList: CustomStringConvertible{
 
-    ///public variable that returns a string representation of the class
-    ///this is used to make the LinkedList class conform to CustomStringConvertible
+    /// Public variable that returns a string representation of the class
+    /// this is used to make the LinkedList class conform to CustomStringConvertible
+    ///
+    /// -Return: A string Representation of the elements in the LinkedList
     public var description: String  {
         //start the string with a square bracket
         var s = "["
@@ -438,9 +450,11 @@ extension LinkedList : CustomStringConvertible{
 
 //MARK: - Extension to get the hashValue of the LinkedList as long as the Element is Hashable -
 
-extension LinkedList where Element : Hashable {
+extension LinkedList where Element: Hashable {
 
-    ///get the hashValue of the LinkedList. Start with 31 and continue doing an xor on the hash values of the values in all nodes and return that number
+    /// Pubic calculated variable to get the hashValue of the LinkedList. 
+    ///
+    /// - Return: An Integer that represents the hashValue of the LinkedList.
     public var hashValue : Int {
 
         var hash = 31
@@ -458,9 +472,11 @@ extension LinkedList where Element : Hashable {
 
 //MARK: - Extension to be able to sort the LinkedList if the Element conforms to Comparable -
 
-extension LinkedList where Element : Comparable{
+extension LinkedList where Element: Comparable{
 
     ///Public function to call a sort on the the linked List
+    ///
+    /// - Return: The LinkedList with all the elements sorted
     @discardableResult public func sorted() -> LinkedList<Element> {
 
         if self.count < 10 {
@@ -475,7 +491,7 @@ extension LinkedList where Element : Comparable{
 
     }
 
-    ///Private Bubble Sort function. This is used for sorting small amounts of data as it works on (O)n^2 time always
+    /// Private Bubble Sort function. This is used for sorting small amounts of data as it works on (O)n^2 time always
     private func bubbleSort(){
 
         //index for the first element to check
@@ -504,8 +520,14 @@ extension LinkedList where Element : Comparable{
         }
     }
 
-    ///private function to partition the list,
-    ///this is used for the self.quickSort() method
+    /// Private function to partition the list,
+    /// this is used for the self.quickSort() method
+    ///
+    /// - Parameters: 
+    ///         - left: The left bounds of the part of the LinkedList we want to partition
+    ///         - right: The right or upper bounds of the part of the LinkedList we want to partition
+    ///
+    /// - Return: An Int that if the middle of the part we are partitioning 
     private func partition(left : Int = 0, right : Int) -> Int{
 
         //get the middle index of the range that was passed to the partition function
@@ -550,11 +572,16 @@ extension LinkedList where Element : Comparable{
 
     }
 
-    ///Private Quick sort function that takes two indexes as the left and right positions to sort from
-    ///starting out this is called with the indexes of 0 and self.endIndex - 1
-    ///starts with self.endIndex  - 1 to conform to other Swift collection types where self.endIndex is one past the last element
-    ///QuickSort is not stable, meaning that if two things are equal, they wont necessarily stay in the same order they are in
-    ///The function usually runs on O(n log n) time for n elements, but can take O(n^2) which can happen if the element of the pivot in partition is either the largest or smallest value
+    /// Private Quick sort function that takes two indexes as the left and right positions to sort from
+    /// starting out this is called with the indexes of 0 and self.endIndex - 1
+    /// starts with self.endIndex  - 1 to conform to other Swift collection types where self.endIndex is one past the last element
+    /// QuickSort is not stable, meaning that if two things are equal, they wont necessarily stay in the same order they are in
+    /// The function usually runs on O(n log n) time for n elements, but can take O(n^2) 
+    /// which can happen if the element of the pivot in partition is either the largest or smallest value
+    ///
+    /// - Parameters:
+    ///         - left: An Int representing the left or lower bound of the part of the LinkedList we want to sort
+    ///         - right: An Int representng the right or upper bound of the part of the LinkedList we want to sort
     private func quickSort(left : Int, right : Int){
 
         //if the left index is less than the right then we need to continue thought the sort
@@ -569,8 +596,12 @@ extension LinkedList where Element : Comparable{
         }
     }
 
-    ///public static function to see if the two values in the two linked list are equal
-    public static func == (lhs : LinkedList<Element>, rhs : LinkedList<Element>) -> Bool {
+    /// Public static function to see if the two values in the two linked list are equal
+    ///
+    /// - Parameters:
+    ///         - left: The LinkedList instance on the left of the equal sign
+    ///         - right: The LinkedList instance on the right side of the equal sign
+    public static func == (left lhs : LinkedList<Element>, right rhs : LinkedList<Element>) -> Bool {
 
         //check to see if the list point to the same same place in memory
         //if they do they are the same list and will always be true
