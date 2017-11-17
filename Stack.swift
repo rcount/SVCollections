@@ -116,10 +116,7 @@ extension Stack where Element: Hashable{
         for item in self{
             hash += hash ^ item.hashValue ^ 100
         }
-
-        return hash
-        
-        
+        return hash  
     }
 }
 
